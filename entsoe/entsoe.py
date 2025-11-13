@@ -30,7 +30,7 @@ __version__ = "0.7.8"
 __author__ = "EnergieID.be, Frank Boerman"
 __license__ = "MIT"
 
-URL = os.getenv("ENTSOE_ENDPOINT_URL") or "https://web-api.tp.entsoe.eu/api"
+URL = os.getenv("ENTSOE_ENDPOINT_URL") or "https://external-api.tp.entsoe.eu/api"
 
 QUARTER_MTU_SDAC_GOLIVE =  pd.Timestamp('2025-10-01', tz='europe/amsterdam')
 
