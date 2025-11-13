@@ -1260,7 +1260,8 @@ class EntsoePandasClient(EntsoeRawClient):
         series = self._query_day_ahead_prices(
             area,
             start=start-pd.Timedelta(days=1),
-            end=end+pd.Timedelta(days=1)
+            end=end+pd.Timedelta(days=1),
+            URL: Optional[str] = URL
         )
         series = series.tz_convert(area.tz).sort_index()
         series = series.truncate(before=start, after=end)
