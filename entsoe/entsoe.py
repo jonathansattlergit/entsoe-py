@@ -1239,7 +1239,8 @@ class EntsoePandasClient(EntsoeRawClient):
             self, country_code: Union[Area, str],
             start: pd.Timestamp,
             end: pd.Timestamp,
-            resolution = None) -> pd.Series:
+            resolution = None,
+            URL: Optional[str] = URL ) -> pd.Series:
         """
         Parameters
         ----------
@@ -1274,13 +1275,15 @@ class EntsoePandasClient(EntsoeRawClient):
             self, area: Area,
             start: pd.Timestamp,
             end: pd.Timestamp,
-            offset: int = 0) -> pd.Series:
+            offset: int = 0,
+            URL: Optional[str] = URL ) -> pd.Series:
         text = super(EntsoePandasClient, self).query_day_ahead_prices(
             area,
             start=start,
             end=end,
             offset=offset,
-            sequence=1 if area.name in ['DE_LU', 'AT'] else None
+            sequence=1 if area.name in ['DE_LU', 'AT'] else None,
+            URL: Optional[str] = URL 
         )
         series_all = parse_prices(text)
 
@@ -1375,7 +1378,8 @@ class EntsoePandasClient(EntsoeRawClient):
             sequence: int,
             start: pd.Timestamp,
             end: pd.Timestamp,
-            resolution: Literal['60min', '30min', '15min'] = '60min') -> pd.Series:
+            resolution: Literal['60min', '30min', '15min'] = '60min',
+            URL: Optional[str] = URL ) -> pd.Series:
         """
         Parameters
         ----------
@@ -1395,7 +1399,8 @@ class EntsoePandasClient(EntsoeRawClient):
             sequence,
             start=start-pd.Timedelta(days=1),
             end=end+pd.Timedelta(days=1),
-            resolution=resolution
+            resolution=resolution,
+            URL: Optional[str] = URL 
         )
         series = series.tz_convert(area.tz).sort_index()
         series = series.truncate(before=start, after=end)
@@ -1412,13 +1417,15 @@ class EntsoePandasClient(EntsoeRawClient):
             start: pd.Timestamp,
             end: pd.Timestamp,
             offset: int = 0,
-            resolution: Literal['60min', '30min', '15min'] = '60min') -> pd.Series:
+            resolution: Literal['60min', '30min', '15min'] = '60min',
+            URL: Optional[str] = URL ) -> pd.Series:
         text = super(EntsoePandasClient, self).query_day_ahead_prices(
             area,
             start=start,
             end=end,
             offset=offset,
-            sequence=sequence
+            sequence=sequence,
+            URL: Optional[str] = URL 
         )
         series_all = parse_prices(text)
         series = series_all[resolution]
