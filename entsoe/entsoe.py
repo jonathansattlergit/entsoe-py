@@ -80,7 +80,7 @@ class EntsoeRawClient:
 
     @retry
     def _base_request(self, params: Dict, start: pd.Timestamp,
-                      end: pd.Timestamp) -> requests.Response:
+                      end: pd.Timestamp, URL: Optional[str] = URL) -> requests.Response:
         """
         Parameters
         ----------
@@ -167,14 +167,14 @@ class EntsoeRawClient:
 
     def query_day_ahead_prices(self, country_code: Union[Area, str],
                                start: pd.Timestamp, end: pd.Timestamp,
-                               offset: int = 0, sequence: int = None) -> str:
+                               offset: int = 0, sequence: int = None, URL: Optional[str] = URL ) -> str:
         """
         Parameters
         ----------
         country_code : Area|str
         start : pd.Timestamp
         end : pd.Timestamp
-
+        URL
         Returns
         -------
         str
